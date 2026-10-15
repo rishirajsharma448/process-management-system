@@ -1,0 +1,382 @@
+/* ==========================================================================
+   OS Process Management & CPU Scheduling Simulator - Light Theme Stylesheet
+   ========================================================================== */
+
+:root {
+  --bg-app: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-subtle: #f1f5f9;
+  --border-color: #e2e8f0;
+  --border-focus: #3b82f6;
+  
+  --text-main: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  
+  --primary-color: #2563eb;
+  --primary-light: #eff6ff;
+  --primary-glow: rgba(37, 99, 235, 0.15);
+  
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --danger-color: #ef4444;
+  --info-color: #6366f1;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  min-height: 100vh;
+  margin: 0;
+  padding-bottom: 2.5rem;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Typography & General Utilities */
+.font-monospace {
+  font-family: 'Fira Code', monospace !important;
+}
+
+.fs-xs {
+  font-size: 0.73rem;
+}
+
+.fs-sm {
+  font-size: 0.84rem;
+}
+
+.text-slate-800 {
+  color: #1e293b !important;
+}
+
+.shadow-xs {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+.shadow-sm {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Smooth Transitions across cards and buttons */
+.card, .btn, .metric-card, .gantt-block, .ready-chip, .table tr {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Navbar Brand Icon */
+.brand-icon {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #dbeafe 0%, #eff6ff 100%);
+  border: 1px solid #bfdbfe;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+}
+
+/* Buttons Styling */
+.btn-xs {
+  padding: 0.22rem 0.5rem;
+  font-size: 0.74rem;
+  border-radius: var(--radius-sm);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8;
+  border-color: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+/* Live Status Pulse Dot */
+.status-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #94a3b8;
+}
+
+.status-indicator.live {
+  background-color: var(--success-color);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+  animation: pulse-dot 1.6s infinite;
+}
+
+@keyframes pulse-dot {
+  0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+/* Process Pool Table & Inline Editable Inputs */
+.table {
+  --bs-table-bg: transparent;
+  color: var(--text-main);
+  border-color: var(--border-color);
+}
+
+.table thead th {
+  background-color: #f8fafc;
+  color: #475569;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.65rem 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.table tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f5f9;
+}
+
+/* Inline Number Inputs inside the Table */
+.inline-proc-input {
+  width: 70px;
+  padding: 0.22rem 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-align: center;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #0f172a;
+  transition: all 0.15s ease;
+}
+
+.inline-proc-input:focus {
+  border-color: #3b82f6;
+  outline: none;
+  background-color: #eff6ff;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.inline-proc-input.input-updated {
+  border-color: #10b981;
+  background-color: #ecfdf5;
+  animation: flash-updated 0.6s ease;
+}
+
+@keyframes flash-updated {
+  0% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* CPU Core Visual Box */
+.cpu-core-box {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  position: relative;
+  min-height: 125px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid var(--border-color) !important;
+}
+
+.cpu-ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90px;
+  height: 90px;
+  background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+  opacity: 0.4;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.cpu-core-box.active-running {
+  border-color: #86efac !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.12);
+}
+
+.cpu-core-box.active-running .cpu-ambient-glow {
+  opacity: 0.9;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.25) 0%, transparent 70%);
+}
+
+/* Ready Queue Box */
+.ready-queue-box {
+  min-height: 125px;
+  border: 1px solid var(--border-color) !important;
+}
+
+.queue-chips-container {
+  min-height: 58px;
+}
+
+.ready-chip {
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-family: 'Fira Code', monospace;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  animation: slide-in 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-12px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+/* Metric Summary Cards */
+.metric-card {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color) !important;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  border-color: #93c5fd !important;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08) !important;
+}
+
+/* Gantt Chart Container */
+.gantt-wrapper {
+  background-color: #f8fafc;
+  padding: 1.1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  min-height: 125px;
+}
+
+.gantt-chart {
+  min-height: 52px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
+  border: 1px solid var(--border-color);
+}
+
+.gantt-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: 700;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.84rem;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  border-right: 1px solid rgba(255, 255, 255, 0.25);
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+
+.gantt-block:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  z-index: 2;
+}
+
+.gantt-block.idle-block {
+  background: repeating-linear-gradient(
+    45deg,
+    #f1f5f9,
+    #f1f5f9 8px,
+    #e2e8f0 8px,
+    #e2e8f0 16px
+  );
+  color: #64748b;
+  font-style: italic;
+  font-size: 0.75rem;
+  text-shadow: none;
+}
+
+/* Gantt Timeline markers */
+.gantt-timeline {
+  height: 25px;
+  margin-top: 5px;
+}
+
+.timeline-mark {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  font-size: 0.72rem;
+  font-family: 'Fira Code', monospace;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.timeline-mark::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 4px;
+  background-color: #cbd5e1;
+}
+
+/* Status Badges */
+.badge-ready {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.badge-finished {
+  background-color: #dcfce7;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
